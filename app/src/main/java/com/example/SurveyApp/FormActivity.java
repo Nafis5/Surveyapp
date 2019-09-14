@@ -67,11 +67,17 @@ public class FormActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void addItem() {
+        final View view = LayoutInflater.from(FormActivity.this).inflate(R.layout.form_item_info, null);
+        final AlertDialog dialog = new AlertDialog.Builder(FormActivity.this).create();
+        dialog.setView(view);
 
+        //initiate and use views here
+
+        dialog.show();
     }
 
     private void showAddSiteInfoDialog() {
-        final View view = LayoutInflater.from(FormActivity.this).inflate(R.layout.form_layout, null);
+        final View view = LayoutInflater.from(FormActivity.this).inflate(R.layout.form_site_info, null);
         final AlertDialog dialog = new AlertDialog.Builder(FormActivity.this).create();
         dialog.setView(view);
         final EditText editSiteName = view.findViewById(R.id.edit_site_name);
