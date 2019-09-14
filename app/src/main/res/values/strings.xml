@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Trial2</string>
+    <string-array name="Site_Classification">
+        <item> only 3G </item>
+        <item> only 2G </item>
+        <item> only 4G </item>
+        <item> 2G+3G </item>
+        <item> 2G+4G </item>
+        <item> 3G+4G </item>
+        <item>  2G+3G+4G </item>
+
+    </string-array>
+    <string-array name="Site_Sharing_Status">
+        <item> Yes </item>
+        <item> NO </item>
+    </string-array>
+
+
+
+
+
+</resources>
