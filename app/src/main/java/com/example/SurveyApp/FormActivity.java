@@ -57,7 +57,7 @@ public class FormActivity extends AppCompatActivity implements AdapterView.OnIte
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!siteInfoAdded) {
+                if (siteInfoAdded) {
                     addItem();
                 } else {
                     showAddSiteInfoDialog();
