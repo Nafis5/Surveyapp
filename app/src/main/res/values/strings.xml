@@ -1,4 +1,4 @@
-<resources>
+f<resources>
     <string name="app_name">Survery App</string>
 
     <string-array name="site_classification">
@@ -15,6 +15,25 @@
         <item> Yes </item>
         <item> NO </item>
     </string-array>
+
+     <string-array name="item_vendor_array">
+
+       <item> Nokia </item>
+      <item> Ericsson </item>
+       <item> Huawei </item>
+       <item> ZTE </item>
+       <item> Alcatel-Lucent </item>    	
+
+
+     	</string-array>
+
+     	 <string-array name="item_model_array">
+              <item> 900 </item>
+              <item> 1800 </item>
+
+     	 	</string-array>
+
+
 
 
 </resources>

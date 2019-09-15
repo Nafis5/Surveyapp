@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.SurveyApp.FormActivity">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_view_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+
+        />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/text_site_name"
@@ -72,8 +85,9 @@
         app:layout_constraintBottom_toTopOf="@id/guideline" />
 
     <androidx.constraintlayout.widget.Group
-        android:visibility="gone"
         android:id="@+id/group"
+        android:visibility="gone"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="text_site_name,text_site_classification,text_site_sharing_status,image_site_photo" />
@@ -90,5 +104,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
