@@ -38,17 +38,20 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
     private ImageView imageSitePhoto;
     private androidx.constraintlayout.widget.Group groupSiteInfo;
     private static final int IMAGE_FILE_REQUST_CODE = 101;
+   private  String siteName;
     private String siteClassification;
     private String siteSharingStatus;
+    private String siteId;
     private File file;
     private Uri finalPath;
     private boolean siteInfoAdded;
-    private String itemquantity;
-    private String itemvendor;
-    private String itemmodel;
-    private String itemequipmentcondition;
-    private String itemremark;
+    private String []itemquantity=new String[47];
+    private String []itemvendor=new String[47];
+    private String []itemmodel=new String[47];
+    private String []itemequipmentcondition=new String[47];
+    private String []itemremark=new String[47];
     RecyclerView itemrecycle;
+    int row=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
         final AlertDialog dialog = new AlertDialog.Builder(FormActivity.this).create();
         dialog.setView(view);
         final EditText editSiteName = view.findViewById(R.id.edit_site_name);
+        final EditText editSiteId=findViewById(R.id.site_id);
         Spinner selectSiteClassification = view.findViewById(R.id.select_site_classification);
         ArrayAdapter<CharSequence> classificationAdapter = ArrayAdapter.createFromResource(FormActivity.this, R.array.site_classification, android.R.layout.simple_expandable_list_item_1);
         selectSiteClassification.setAdapter(classificationAdapter);
@@ -136,24 +140,42 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
          buttonAddItem.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 itemquantity=editquantity.getText().toString();
-                 itemequipmentcondition=editequipmentcondition.getText().toString();
-                 itemremark=editremark.getText().toString();
+                 itemquantity[row]=editquantity.getText().toString();
+                 itemequipmentcondition[row]=editequipmentcondition.getText().toString();
+                itemremark[row]=editremark.getText().toString();
                  //have to save variable here or directly send them to another class to create excel
+                 /* Intent sendata=new Intent(FormActivity.this,Excel.class);
+                 i.putextra()
+
+                  */
+                 row++;
+                 //create a done bottom for the entire form,then intialize row=0 then
              }
          });
 
         buttonAddSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //create file directory here
                 textSiteName.setText(String.format("Site name:%s", editSiteName.getText().toString()));
                 textSiteClassification.setText(String.format("Classification:%s", siteClassification));
                 textSiteSharingStatus.setText(String.format("Site Sharing Stauts: %s", siteSharingStatus));
+                //the client wants to preview the data entered on the click of a sperate button named preview
                 Glide.with(FormActivity.this).load(finalPath).into(imageSitePhoto);
                 groupSiteInfo.setVisibility(View.VISIBLE);
                 siteInfoAdded = true;
                 dialog.dismiss();
+                siteName=editSiteName.getText().toString();
+                siteId=editSiteId.getText().toString();
+
+                /* Excel data=new Excel(siteName,siteId,siteSharingStatus,siteClassification);
+
+
+                 */
+
                 itemrecycle.setVisibility(View.VISIBLE);
+
+
 
             }
         });
@@ -173,11 +195,12 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
                 System.out.println(siteSharingStatus); //why do we have to print this?
                 break;
             case R.id.select_item_vendor:
-                itemvendor=getResources().getStringArray(R.array.item_vendor_array)[position];
+                itemvendor[row]=getResources().getStringArray(R.array.item_vendor_array)[position];
                 break;
             case R.id.select_item_model:
-                itemmodel=getResources().getStringArray(R.array.item_model_array)[position];
+                itemmodel[row]=getResources().getStringArray(R.array.item_model_array)[position];
                 break;
+
         }
     }
 

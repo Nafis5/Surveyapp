@@ -7,7 +7,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditText
-        android:id="@+id/edit_site_name"
+    android:id="@+id/edit_site_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/bg_black_border"
+    android:padding="10dp"
+    android:inputType="text"
+    android:hint="Site name"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/select_site_sharing_status" />
+    <EditText
+        android:id="@+id/edit_site_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -16,20 +29,21 @@
         android:inputType="text"
         android:hint="Site name"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_site_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/select_site_sharing_status" />
-
     <Spinner
         android:id="@+id/select_site_sharing_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/bg_black_border"
-        app:layout_constraintTop_toBottomOf="@id/edit_site_name"
+        app:layout_constraintTop_toBottomOf="@id/edit_site_id"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/select_site_classification" />
+
 
     <Spinner
         android:id="@+id/select_site_classification"
