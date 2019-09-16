@@ -45,13 +45,15 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
     private File file;
     private Uri finalPath;
     private boolean siteInfoAdded;
-    private String []itemquantity=new String[47];
-    private String []itemvendor=new String[47];
-    private String []itemmodel=new String[47];
-    private String []itemequipmentcondition=new String[47];
-    private String []itemremark=new String[47];
+    private String itemname;
+    private String itemquantity;
+    private String itemvendor;
+    private String itemmodel;
+    private String itemequipmentcondition;
+    private String itemremark;
     RecyclerView itemrecycle;
     int row=0;
+    Excel data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,9 +142,11 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
          buttonAddItem.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 itemquantity[row]=editquantity.getText().toString();
-                 itemequipmentcondition[row]=editequipmentcondition.getText().toString();
-                itemremark[row]=editremark.getText().toString();
+                 itemname=getResources().getStringArray(R.array.item_vendor_array)[row];
+                 itemquantity=editquantity.getText().toString();
+                 itemequipmentcondition=editequipmentcondition.getText().toString();
+                itemremark=editremark.getText().toString();
+                 data.additem_sub_components_noarray(itemname,itemquantity,itemvendor,itemmodel,itemequipmentcondition,itemremark);
                  //have to save variable here or directly send them to another class to create excel
 
 
@@ -167,7 +171,7 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
                 siteName=editSiteName.getText().toString();
                 siteId=editSiteId.getText().toString();
 
-                Excel data=new Excel(siteName,siteId,siteSharingStatus,siteClassification);
+                 data=new Excel(siteName,siteId,siteSharingStatus,siteClassification);
 
 
 
@@ -194,10 +198,10 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
                 System.out.println(siteSharingStatus); //why do we have to print this?
                 break;
             case R.id.select_item_vendor:
-                itemvendor[row]=getResources().getStringArray(R.array.item_vendor_array)[position];
+                itemvendor=getResources().getStringArray(R.array.item_vendor_array)[position];
                 break;
             case R.id.select_item_model:
-                itemmodel[row]=getResources().getStringArray(R.array.item_model_array)[position];
+                itemmodel=getResources().getStringArray(R.array.item_model_array)[position];
                 break;
 
         }

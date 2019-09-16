@@ -60,7 +60,7 @@ public class Excel {
 
    
 
-    void additem_sub_components(String []itemname,String[]quantity,String []vendor,String []model,String []equipmentcondition,String []remark){
+   /* void additem_sub_components(String []itemname,String[]quantity,String []vendor,String []model,String []equipmentcondition,String []remark){
         // adding the components to the spreadsheet
 
 
@@ -77,7 +77,7 @@ public class Excel {
 
 
         }
-    }
+    }*/
 
 
         

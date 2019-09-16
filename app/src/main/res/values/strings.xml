@@ -33,7 +33,18 @@ f<resources>
 
      	 	</string-array>
 
+     	 	<string-array name="item_name_array">
+ <item> BTS equipment (2100) with cabinet </item>
+ <item> RRU Module for BTS Equipment </item>
+ <item> APM 30 for BTS Equipment </item>
+ <item> BBU (Base Band Unit) </item>
+ <item> TX rack </item>
+ <item> RTN-980 chassis with accessories </item>
+ <item> RTN-950 chassis with accessories </item>
+ <item> RTN-910 chassis with accessories </item>
 
+
+              </string-array>
 
 
 </resources>
