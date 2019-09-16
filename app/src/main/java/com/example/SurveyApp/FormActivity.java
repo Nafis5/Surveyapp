@@ -144,10 +144,9 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
                  itemequipmentcondition[row]=editequipmentcondition.getText().toString();
                 itemremark[row]=editremark.getText().toString();
                  //have to save variable here or directly send them to another class to create excel
-                 /* Intent sendata=new Intent(FormActivity.this,Excel.class);
-                 i.putextra()
 
-                  */
+
+
                  row++;
                  //create a done bottom for the entire form,then intialize row=0 then
              }
@@ -168,10 +167,10 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
                 siteName=editSiteName.getText().toString();
                 siteId=editSiteId.getText().toString();
 
-                /* Excel data=new Excel(siteName,siteId,siteSharingStatus,siteClassification);
+                Excel data=new Excel(siteName,siteId,siteSharingStatus,siteClassification);
 
 
-                 */
+
 
                 itemrecycle.setVisibility(View.VISIBLE);
 
