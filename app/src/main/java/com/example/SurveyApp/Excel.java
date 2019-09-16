@@ -98,15 +98,16 @@ public class Excel {
 
         }
 
+        //call this method after all items have been added
+        void finishexcel(String folder_location){
 
-        void finishexcel(){
-         //i don't know how to put the folder inside the parent folder which will be named as survey app
      
             String fileName = "FileName.xlsx";
-String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-File folder = new File(extStorageDirectory, "FolderName");
-folder.mkdir();
-File file = new File(foldername, filename);
+
+
+String extStorageDirectory = folder_location;//kon folder a save  hobe tar directory r string aikhane boshbe
+
+File file = new File(folder_location, filename);
 try {
     file.createNewFile();
   } catch (IOException e1) {
