@@ -22,33 +22,36 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.SurveyApp.adapters.ItemAdapter;
+import com.example.SurveyApp.model.Model;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import id.zelory.compressor.Compressor;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 
-public class FormActivity<Group> extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class FormActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView textSiteName;
     private TextView textSiteClassification;
     private TextView textSiteSharingStatus;
     private ImageView imageSitePhoto;
-    private androidx.constraintlayout.widget.Group groupSiteInfo;
+    private Group groupSiteInfo;
+    private Button save;
+
     private static final int IMAGE_FILE_REQUST_CODE = 101;
+    private String siteName;
     private String siteClassification;
     private String siteSharingStatus;
     private File file;
     private Uri finalPath;
-    private boolean siteInfoAdded;
-    private String itemquantity;
-    private String itemvendor;
-    private String itemmodel;
-    private String itemequipmentcondition;
-    private String itemremark;
-    RecyclerView itemrecycle;
+
+    private ArrayList<Model> list;
+    private ItemAdapter adapter;
+    private boolean siteAdded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +64,19 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
         imageSitePhoto = findViewById(R.id.image_site_photo);
         groupSiteInfo = findViewById(R.id.group);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        list = new ArrayList<>();
+        adapter = new ItemAdapter(this, list);
+        RecyclerView itemrecycle = findViewById(R.id.item_view_recycle);
+        itemrecycle.setHasFixedSize(true);
+        itemrecycle.setLayoutManager(new LinearLayoutManager(this));
+        itemrecycle.setAdapter(adapter);
+
+        save = findViewById(R.id.button_save);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (siteInfoAdded) {
-                    addItem();
+                if (siteAdded) {
+                    saveData();
                 } else {
                     showAddSiteInfoDialog();
                 }
@@ -74,14 +84,8 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
         });
     }
 
-    private void addItem() {
-        final View view = LayoutInflater.from(FormActivity.this).inflate(R.layout.form_item_info, null);
-        final AlertDialog dialog = new AlertDialog.Builder(FormActivity.this).create();
-        dialog.setView(view);
+    private void saveData() {
 
-        //initiate and use views here
-
-        dialog.show();
     }
 
     private void showAddSiteInfoDialog() {
@@ -97,7 +101,7 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
         ArrayAdapter<CharSequence> sharingStatusAdapter = ArrayAdapter.createFromResource(FormActivity.this, R.array.site_sharing_status, android.R.layout.simple_expandable_list_item_1);
         selectSiteSharingStatus.setAdapter(sharingStatusAdapter);
         selectSiteSharingStatus.setOnItemSelectedListener(FormActivity.this);
-        EditText editSiteImageName = view.findViewById(R.id.edit_site_photo_name);
+//        EditText editSiteImageName = view.findViewById(R.id.edit_site_photo_name);
         Button buttonAddSitePhoto = view.findViewById(R.id.button_add_site_photo);
         buttonAddSitePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,76 +111,41 @@ public class FormActivity<Group> extends AppCompatActivity implements AdapterVie
         });
         Button buttonAddSite = view.findViewById(R.id.button_add_site);
 
-        //intializing item variables below
-          itemrecycle=findViewById(R.id.item_view_recycle);
-          itemrecycle.setHasFixedSize(true);
-          itemrecycle.setLayoutManager(new LinearLayoutManager(this));
-          //have to create adapter for recycleview
-
-        final EditText editquantity=findViewById(R.id.edit_item_quantity);
-
-        Button buttonAddItemPhoto=findViewById(R.id.button_add_item_photo);
-        Button buttonAddItem=findViewById(R.id.button_add_item);
-        Spinner selectVendor=findViewById(R.id.select_item_vendor);
-        ArrayAdapter<CharSequence> vendorAdapter = ArrayAdapter.createFromResource(FormActivity.this, R.array.item_vendor_array, android.R.layout.simple_expandable_list_item_1);
-        selectVendor.setAdapter(vendorAdapter);
-        Spinner selectModel=findViewById(R.id.select_item_vendor);
-
-        ArrayAdapter<CharSequence> modelAdapter = ArrayAdapter.createFromResource(FormActivity.this, R.array.item_model_array, android.R.layout.simple_expandable_list_item_1);
-        selectModel.setAdapter(vendorAdapter);
-        final EditText editequipmentcondition=findViewById(R.id.edit_item_equipment_condition);
-        final EditText editremark=findViewById(R.id.edit_item_remark);
-        buttonAddItemPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePhoto();
-                //have to save photo
-            }
-        });
-         buttonAddItem.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 itemquantity=editquantity.getText().toString();
-                 itemequipmentcondition=editequipmentcondition.getText().toString();
-                 itemremark=editremark.getText().toString();
-                 //have to save variable here or directly send them to another class to create excel
-             }
-         });
-
         buttonAddSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textSiteName.setText(String.format("Site name:%s", editSiteName.getText().toString()));
-                textSiteClassification.setText(String.format("Classification:%s", siteClassification));
-                textSiteSharingStatus.setText(String.format("Site Sharing Stauts: %s", siteSharingStatus));
-                Glide.with(FormActivity.this).load(finalPath).into(imageSitePhoto);
-                groupSiteInfo.setVisibility(View.VISIBLE);
-                siteInfoAdded = true;
+                siteName = editSiteName.getText().toString();
+                loadView();
+                siteAdded = true;
                 dialog.dismiss();
-                itemrecycle.setVisibility(View.VISIBLE);
-
             }
         });
         dialog.show();
     }
 
+    private void loadView() {
+        save.setText("Save");
+        textSiteName.setText(String.format("Site name:%s", siteName));
+        textSiteClassification.setText(String.format("Classification:%s", siteClassification));
+        textSiteSharingStatus.setText(String.format("Site Sharing Stauts: %s", siteSharingStatus));
+        Glide.with(FormActivity.this).load(finalPath).into(imageSitePhoto);
+        groupSiteInfo.setVisibility(View.VISIBLE);
+        list.add(new Model("Item One"));
+        list.add(new Model("Iem Two"));
+        list.add(new Model("Item Three"));
+        list.add(new Model("Item Four"));
+        list.add(new Model("Item Five"));
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        System.out.println(position);
         switch (parent.getId()) {
             case R.id.select_site_classification:
                 siteClassification = getResources().getStringArray(R.array.site_classification)[position];
-                System.out.println(siteClassification);
                 break;
             case R.id.select_site_sharing_status:
                 siteSharingStatus = getResources().getStringArray(R.array.site_sharing_status)[position];
-                System.out.println(siteSharingStatus); //why do we have to print this?
-                break;
-            case R.id.select_item_vendor:
-                itemvendor=getResources().getStringArray(R.array.item_vendor_array)[position];
-                break;
-            case R.id.select_item_model:
-                itemmodel=getResources().getStringArray(R.array.item_model_array)[position];
                 break;
         }
     }

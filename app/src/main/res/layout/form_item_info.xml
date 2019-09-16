@@ -1,99 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="10dp"
     android:padding="20dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/text_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Name"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/edit_item_quantity" />
 
-    <EditText
-        android:id="@+id/edit_item_quantity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/bg_black_border"
-        android:padding="10dp"
-        android:hint="Physical Quantity"
-        android:inputType="text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        <EditText
+            android:id="@+id/edit_item_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_black_border"
+            android:padding="10dp"
+            android:hint="Physical Quantity"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@id/text_item_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/select_item_vendor"/>
 
-         <Spinner
-        android:id="@+id/select_item_vendor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/bg_black_border"
-        app:layout_constraintTop_toBottomOf="@+id/edit_item_quantity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/select_item_equipment_condition" />
-    <Spinner
-        android:id="@+id/select_item_model"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/bg_black_border"
-        app:layout_constraintTop_toBottomOf="@+id/select_item_vendor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/select_item_equipment_condition" />
-         <EditText
-        android:id="@+id/edit_item_equipment_condition"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/bg_black_border"
-        app:layout_constraintTop_toBottomOf="@+id/select_item_model"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/select_item_remark" />
+        <Spinner
+            android:id="@+id/select_item_vendor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_black_border"
+            app:layout_constraintTop_toBottomOf="@+id/edit_item_quantity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/edit_item_equipment_condition" />
+
+        <Spinner
+            android:id="@+id/select_item_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_black_border"
+            app:layout_constraintTop_toBottomOf="@+id/select_item_vendor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/edit_item_equipment_condition" />
+
+        <EditText
+            android:id="@+id/edit_item_equipment_condition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:hint="Condition"
+            android:background="@drawable/bg_black_border"
+            app:layout_constraintTop_toBottomOf="@+id/select_item_model"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/edit_item_remark" />
 
 
-         <EditText
-        android:id="@+id/edit_item_remark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/bg_black_border"
-        app:layout_constraintTop_toBottomOf="@+id/select_item_equipment_condition"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/button_add_item_photo" />
+        <EditText
+            android:id="@+id/edit_item_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:hint="Remark"
+            android:background="@drawable/bg_black_border"
+            app:layout_constraintTop_toBottomOf="@+id/edit_item_equipment_condition"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_add_item_photo" />
 
         <Button
-        android:id="@+id/button_add_item_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="Add photo"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toTopOf="@+id/button_add_item"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/select_item_remark" />
+            android:id="@+id/button_add_item_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add photo"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toTopOf="@+id/button_add_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_item_remark" />
 
         <Button
-        android:id="@+id/button_add_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Add Item"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/button_add_item_photo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-
-
-
+            android:id="@+id/button_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="Add Item"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/button_add_item_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
