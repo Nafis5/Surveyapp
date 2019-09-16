@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.SurveyApp.R;
@@ -66,12 +67,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
             }
         });
 
+        holder.imageRecycler.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL,false));
+
         holder.buttonAddItemPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                takePhoto();
             }
         });
+
         holder.buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +99,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         private Spinner selectModel;
         private EditText editequipmentcondition;
         private EditText editremark;
+        private RecyclerView imageRecycler;
         private Button buttonAddItemPhoto;
         private Button buttonAddItem;
 
@@ -107,6 +112,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
             selectModel=itemView.findViewById(R.id.select_item_model);
             editequipmentcondition=itemView.findViewById(R.id.edit_item_equipment_condition);
             editremark=itemView.findViewById(R.id.edit_item_remark);
+            imageRecycler = itemView.findViewById(R.id.image_recycler);
             buttonAddItemPhoto=itemView.findViewById(R.id.button_add_item_photo);
             buttonAddItem=itemView.findViewById(R.id.button_add_item);
         }

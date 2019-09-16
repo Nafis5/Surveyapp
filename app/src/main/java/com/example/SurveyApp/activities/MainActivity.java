@@ -1,4 +1,4 @@
-package com.example.SurveyApp;
+package com.example.SurveyApp.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,9 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.SurveyApp.R;
 import com.example.SurveyApp.adapters.ItemAdapter;
 import com.example.SurveyApp.model.Model;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import id.zelory.compressor.Compressor;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 
-public class FormActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView textSiteName;
     private TextView textSiteClassification;
@@ -56,7 +56,7 @@ public class FormActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form);
+        setContentView(R.layout.activity_main);
 
         textSiteName = findViewById(R.id.text_site_name);
         textSiteClassification = findViewById(R.id.text_site_classification);
@@ -89,18 +89,18 @@ public class FormActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void showAddSiteInfoDialog() {
-        final View view = LayoutInflater.from(FormActivity.this).inflate(R.layout.form_site_info, null);
-        final AlertDialog dialog = new AlertDialog.Builder(FormActivity.this).create();
+        final View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.form_site_info, null);
+        final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
         dialog.setView(view);
         final EditText editSiteName = view.findViewById(R.id.edit_site_name);
         Spinner selectSiteClassification = view.findViewById(R.id.select_site_classification);
-        ArrayAdapter<CharSequence> classificationAdapter = ArrayAdapter.createFromResource(FormActivity.this, R.array.site_classification, android.R.layout.simple_expandable_list_item_1);
+        ArrayAdapter<CharSequence> classificationAdapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.site_classification, android.R.layout.simple_expandable_list_item_1);
         selectSiteClassification.setAdapter(classificationAdapter);
-        selectSiteClassification.setOnItemSelectedListener(FormActivity.this);
+        selectSiteClassification.setOnItemSelectedListener(MainActivity.this);
         Spinner selectSiteSharingStatus = view.findViewById(R.id.select_site_sharing_status);
-        ArrayAdapter<CharSequence> sharingStatusAdapter = ArrayAdapter.createFromResource(FormActivity.this, R.array.site_sharing_status, android.R.layout.simple_expandable_list_item_1);
+        ArrayAdapter<CharSequence> sharingStatusAdapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.site_sharing_status, android.R.layout.simple_expandable_list_item_1);
         selectSiteSharingStatus.setAdapter(sharingStatusAdapter);
-        selectSiteSharingStatus.setOnItemSelectedListener(FormActivity.this);
+        selectSiteSharingStatus.setOnItemSelectedListener(MainActivity.this);
 //        EditText editSiteImageName = view.findViewById(R.id.edit_site_photo_name);
         Button buttonAddSitePhoto = view.findViewById(R.id.button_add_site_photo);
         buttonAddSitePhoto.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +128,7 @@ public class FormActivity extends AppCompatActivity implements AdapterView.OnIte
         textSiteName.setText(String.format("Site name:%s", siteName));
         textSiteClassification.setText(String.format("Classification:%s", siteClassification));
         textSiteSharingStatus.setText(String.format("Site Sharing Stauts: %s", siteSharingStatus));
-        Glide.with(FormActivity.this).load(finalPath).into(imageSitePhoto);
+        Glide.with(MainActivity.this).load(finalPath).into(imageSitePhoto);
         groupSiteInfo.setVisibility(View.VISIBLE);
         list.add(new Model("Item One"));
         list.add(new Model("Iem Two"));
@@ -156,7 +156,7 @@ public class FormActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void takePhoto() {
-        Intent intent = new Intent(FormActivity.this, ImageSelectActivity.class);
+        Intent intent = new Intent(MainActivity.this, ImageSelectActivity.class);
         intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, false);
         intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true);
         intent.putExtra(ImageSelectActivity.FLAG_GALLERY, false);
