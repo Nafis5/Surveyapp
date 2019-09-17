@@ -45,7 +45,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/select_site_classification" />
 
-
     <Spinner
         android:id="@+id/select_site_classification"
         android:layout_width="match_parent"
@@ -55,12 +54,13 @@
         app:layout_constraintTop_toBottomOf="@id/select_site_sharing_status"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button_add_site_photo" />
+        app:layout_constraintBottom_toTopOf="@id/site_image" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/site_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_margin="10dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintTop_toBottomOf="@id/select_site_classification"
@@ -70,21 +70,27 @@
 
     <Button
         android:id="@+id/button_add_site_photo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:background="@drawable/bg_black_border"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:text="Add photo"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@id/site_image"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/button_add_site" />
+        app:layout_constraintBottom_toTopOf="@id/button_add_site" />
 
     <Button
         android:id="@+id/button_add_site"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_black_border"
         android:text="Add Site"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@id/button_add_site_photo"

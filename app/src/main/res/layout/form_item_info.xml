@@ -110,8 +110,10 @@
 
         <Button
             android:id="@+id/button_add_item_photo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_black_border"
+            android:layout_margin="20dp"
             android:text="Add photo"
             android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/image_recycler"
@@ -121,8 +123,9 @@
 
         <Button
             android:id="@+id/button_add_item"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_black_border"
             android:layout_margin="20dp"
             android:text="Add Item"
             android:textAllCaps="false"

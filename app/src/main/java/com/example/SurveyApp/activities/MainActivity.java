@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     list.get(position).getImageList().add(String.valueOf(finalPath));
                     adapter.notifyDataSetChanged();
                 } else {
+                    siteImage.setVisibility(View.VISIBLE);
                     Glide.with(this).load(finalPath).into(siteImage);
                 }
             }
