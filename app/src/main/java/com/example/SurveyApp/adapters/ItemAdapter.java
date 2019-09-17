@@ -29,10 +29,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     private ArrayList<Model> list;
     private Excel excel;
 
-    public ItemAdapter(Context context, ArrayList<Model> list, String siteName) {
+    public ItemAdapter(Context context, ArrayList<Model> list, String siteId) {
         this.context = context;
         this.list = list;
-        excel = new Excel(siteName);
+        excel = new Excel(siteId);
     }
 
     @NonNull
@@ -111,8 +111,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         return list.size();
     }
 
-    public void saveData() {
-        excel.finish();
+    public void saveData(String siteName) {
+        excel.finish(siteName);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -20,10 +20,10 @@ public class Excel {
     private Sheet sheet;
     private String filename;
 
-    public Excel(String siteName){
+    public Excel(String siteId){
         workbook=new XSSFWorkbook();
-        sheet=workbook.createSheet(siteName);
-        filename=siteName+".xlsx";
+        sheet=workbook.createSheet(siteId);
+        filename=siteId+".xlsx";
         Row headerRow=sheet.createRow(0);
         headerRow.createCell(0).setCellValue("Item name");
         headerRow.createCell(1).setCellValue("Quantity");
@@ -56,8 +56,8 @@ public class Excel {
         sheetrow.createCell(6).setCellValue(model.getRemark());
     }
 
-    public void finish(){
-        File root = new File(Environment.getExternalStorageDirectory(), "Survey");
+    public void finish(String siteName){
+        File root = new File(Environment.getExternalStorageDirectory(), "Survey/" + siteName);
         if (!root.exists()) {
             root.mkdirs();
         }

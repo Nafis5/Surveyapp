@@ -48,14 +48,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private WaitingDialog waitingDialog;
 
     private static final int IMAGE_FILE_REQUST_CODE = 101;
-    private String siteName;
-    private String siteClassification;
-    private String siteSharingStatus;
     private File file;
     private Uri finalPath;
 
     private ItemAdapter adapter;
     private boolean siteAdded;
+    private String siteId;
+    private String siteName;
+    private String siteClassification;
+    private String siteSharingStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void saveData() {
-        adapter.saveData();
+        adapter.saveData(siteName);
         groupSiteInfo.setVisibility(View.GONE);
         save.setText(getString(R.string.add_site));
         siteAdded = false;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         final View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.form_site_info, null);
         final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
         dialog.setView(view);
+        final EditText editSiteId = view.findViewById(R.id.edit_site_id);
         final EditText editSiteName = view.findViewById(R.id.edit_site_name);
         Spinner selectSiteClassification = view.findViewById(R.id.select_site_classification);
         ArrayAdapter<CharSequence> classificationAdapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.site_classification, android.R.layout.simple_expandable_list_item_1);
@@ -103,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<CharSequence> sharingStatusAdapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.site_sharing_status, android.R.layout.simple_expandable_list_item_1);
         selectSiteSharingStatus.setAdapter(sharingStatusAdapter);
         selectSiteSharingStatus.setOnItemSelectedListener(MainActivity.this);
-//        EditText editSiteImageName = view.findViewById(R.id.edit_site_photo_name);
         Button buttonAddSitePhoto = view.findViewById(R.id.button_add_site_photo);
         buttonAddSitePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 waitingDialog.show(getString(R.string.wait));
+                siteId = editSiteId.getText().toString();
                 siteName = editSiteName.getText().toString();
                 loadView();
                 siteAdded = true;
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void loadView() {
         save.setText("Save");
-        textSiteName.setText(String.format("Site name:%s", siteName));
+        textSiteName.setText(String.format("Site name:%s", siteId));
         textSiteClassification.setText(String.format("Classification:%s", siteClassification));
         textSiteSharingStatus.setText(String.format("Site Sharing Stauts: %s", siteSharingStatus));
         Glide.with(MainActivity.this).load(finalPath).into(imageSitePhoto);
