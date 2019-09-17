@@ -60,15 +60,15 @@ public class Excel {
         File root = new File(Environment.getExternalStorageDirectory(), "Survey");
         if (!root.exists()) {
             root.mkdirs();
-            File file = new File(root, filename);
-            try {
-                file.createNewFile();
-                FileOutputStream fileOut = new FileOutputStream(file);
-                workbook.write(fileOut);
-                fileOut.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        }
+        File file = new File(root, filename);
+        try {
+            file.createNewFile();
+            FileOutputStream fileOut = new FileOutputStream(file);
+            workbook.write(fileOut);
+            fileOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
