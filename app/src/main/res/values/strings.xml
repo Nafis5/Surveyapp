@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Survery App</string>
+    <string name="add_site">Add site</string>
+    <string name="wait">Please wait…</string>
 
     <string-array name="site_classification">
         <item> only 3G </item>

@@ -35,7 +35,8 @@
             android:background="@drawable/bg_black_border"
             android:padding="10dp"
             android:hint="Physical Quantity"
-            android:inputType="text"
+            android:inputType="number"
+            android:imeOptions="actionDone"
             app:layout_constraintTop_toBottomOf="@id/text_item_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_item_quantity"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/edit_item_equipment_condition" />
+            app:layout_constraintBottom_toTopOf="@id/select_item_model" />
 
         <Spinner
             android:id="@+id/select_item_model"
@@ -70,6 +71,7 @@
             android:layout_margin="20dp"
             android:padding="10dp"
             android:hint="Condition"
+            android:imeOptions="actionNext"
             android:background="@drawable/bg_black_border"
             app:layout_constraintTop_toBottomOf="@+id/select_item_model"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,6 +86,7 @@
             android:layout_margin="20dp"
             android:padding="10dp"
             android:hint="Remark"
+            android:imeOptions="actionDone"
             android:background="@drawable/bg_black_border"
             app:layout_constraintTop_toBottomOf="@+id/edit_item_equipment_condition"
             app:layout_constraintStart_toStartOf="parent"

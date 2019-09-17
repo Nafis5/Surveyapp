@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.example.SurveyApp.R;
 import com.example.SurveyApp.adapters.ItemAdapter;
 import com.example.SurveyApp.model.Model;
+import com.example.SurveyApp.util.WaitingDialog;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ImageView imageSitePhoto;
     private Group groupSiteInfo;
     private Button save;
+    private WaitingDialog waitingDialog;
 
     private static final int IMAGE_FILE_REQUST_CODE = 101;
     private String siteName;
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private File file;
     private Uri finalPath;
 
-    private ArrayList<Model> list;
     private ItemAdapter adapter;
     private boolean siteAdded;
 
@@ -58,18 +59,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        waitingDialog = new WaitingDialog(this);
+
         textSiteName = findViewById(R.id.text_site_name);
         textSiteClassification = findViewById(R.id.text_site_classification);
         textSiteSharingStatus = findViewById(R.id.text_site_sharing_status);
         imageSitePhoto = findViewById(R.id.image_site_photo);
         groupSiteInfo = findViewById(R.id.group);
-
-        list = new ArrayList<>();
-        adapter = new ItemAdapter(this, list);
-        RecyclerView itemrecycle = findViewById(R.id.item_view_recycle);
-        itemrecycle.setHasFixedSize(true);
-        itemrecycle.setLayoutManager(new LinearLayoutManager(this));
-        itemrecycle.setAdapter(adapter);
 
         save = findViewById(R.id.button_save);
         save.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +81,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void saveData() {
-
+        adapter.saveData();
+        groupSiteInfo.setVisibility(View.GONE);
+        save.setText(getString(R.string.add_site));
+        siteAdded = false;
     }
 
     private void showAddSiteInfoDialog() {
@@ -114,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         buttonAddSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                waitingDialog.show(getString(R.string.wait));
                 siteName = editSiteName.getText().toString();
                 loadView();
                 siteAdded = true;
@@ -130,12 +130,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         textSiteSharingStatus.setText(String.format("Site Sharing Stauts: %s", siteSharingStatus));
         Glide.with(MainActivity.this).load(finalPath).into(imageSitePhoto);
         groupSiteInfo.setVisibility(View.VISIBLE);
+        ArrayList<Model> list = new ArrayList<>();
         list.add(new Model("Item One"));
         list.add(new Model("Iem Two"));
         list.add(new Model("Item Three"));
         list.add(new Model("Item Four"));
         list.add(new Model("Item Five"));
-        adapter.notifyDataSetChanged();
+        adapter = new ItemAdapter(this,list,siteName);
+        RecyclerView itemrecycle = findViewById(R.id.item_view_recycle);
+        itemrecycle.setHasFixedSize(true);
+        itemrecycle.setLayoutManager(new LinearLayoutManager(this));
+        itemrecycle.setAdapter(adapter);
+        waitingDialog.dismiss();
     }
 
     @Override
@@ -168,6 +174,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_FILE_REQUST_CODE && resultCode == Activity.RESULT_OK) {
             String filePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
+//            filePath.replace("profile.png","Hello.png");
+            System.out.println(filePath);
             try {
                 if (filePath != null) {
                     file = new File(filePath);

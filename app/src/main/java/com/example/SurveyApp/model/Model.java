@@ -4,10 +4,10 @@ public class Model {
 
     private String name;
     private int quantity = 0;
-    private String vendor = "";
-    private String model = "";
-    private String condition = "";
-    private String remark = "";
+    private String vendor = "None";
+    private String model = "None";
+    private String condition = "None";
+    private String remark = "None";
 
     public Model(String name) {
         this.name = name;
