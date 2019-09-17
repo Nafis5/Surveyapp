@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void loadView() {
         save.setText("Save");
-        textSiteName.setText(String.format("Site name:%s", siteId));
+        textSiteName.setText(String.format("Site name:%s", siteName));
         textSiteClassification.setText(String.format("Classification:%s", siteClassification));
         textSiteSharingStatus.setText(String.format("Site Sharing Stauts: %s", siteSharingStatus));
         Glide.with(MainActivity.this).load(finalPath).into(imageSitePhoto);
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         list.add(new Model("Item Three"));
         list.add(new Model("Item Four"));
         list.add(new Model("Item Five"));
-        adapter = new ItemAdapter(this,list,siteName);
+        adapter = new ItemAdapter(this,list,siteId);
         RecyclerView itemrecycle = findViewById(R.id.item_view_recycle);
         itemrecycle.setHasFixedSize(true);
         itemrecycle.setLayoutManager(new LinearLayoutManager(this));
