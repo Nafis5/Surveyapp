@@ -27,17 +27,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.SurveyApp.R;
 import com.example.SurveyApp.adapters.ItemAdapter;
+import com.example.SurveyApp.constants.AppConstants;
+import com.example.SurveyApp.interfaces.Main;
 import com.example.SurveyApp.model.Model;
 import com.example.SurveyApp.util.WaitingDialog;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import id.zelory.compressor.Compressor;
 import in.mayanknagwanshi.imagepicker.ImageSelectActivity;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, Main {
 
     private TextView textSiteName;
     private TextView textSiteClassification;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private Group groupSiteInfo;
     private Button save;
     private WaitingDialog waitingDialog;
+    private ImageView siteImage;
 
     private static final int IMAGE_FILE_REQUST_CODE = 101;
     private File file;
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String siteName;
     private String siteClassification;
     private String siteSharingStatus;
+    private int position = -1;
+    private ArrayList<Model> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         selectSiteSharingStatus.setAdapter(sharingStatusAdapter);
         selectSiteSharingStatus.setOnItemSelectedListener(MainActivity.this);
         Button buttonAddSitePhoto = view.findViewById(R.id.button_add_site_photo);
+        siteImage = view.findViewById(R.id.site_image);
         buttonAddSitePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         textSiteSharingStatus.setText(String.format("Site Sharing Stauts: %s", siteSharingStatus));
         Glide.with(MainActivity.this).load(finalPath).into(imageSitePhoto);
         groupSiteInfo.setVisibility(View.VISIBLE);
-        ArrayList<Model> list = new ArrayList<>();
+        list = new ArrayList<>();
         list.add(new Model("Item One"));
         list.add(new Model("Iem Two"));
         list.add(new Model("Item Three"));
@@ -179,8 +186,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_FILE_REQUST_CODE && resultCode == Activity.RESULT_OK) {
             String filePath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH);
-//            filePath.replace("profile.png","Hello.png");
-            System.out.println(filePath);
             try {
                 if (filePath != null) {
                     file = new File(filePath);
@@ -198,12 +203,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             .setCompressFormat(Bitmap.CompressFormat.JPEG)
                             .compressToFile(file);
                     finalPath = Uri.fromFile(compressor);
-                    System.out.println(finalPath);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//                Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
+                if (position >= 0) {
+                    list.get(position).getImageList().add(String.valueOf(finalPath));
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Glide.with(this).load(finalPath).into(siteImage);
+                }
             }
         }
+    }
+
+    @Override
+    public void openCamera(int position) {
+        this.position = position;
+        takePhoto();
     }
 }

@@ -29,8 +29,8 @@ public class Excel {
         headerRow.createCell(1).setCellValue("Quantity");
         headerRow.createCell(2).setCellValue("Vendor");
         headerRow.createCell(3).setCellValue("Model");
-        headerRow.createCell(3).setCellValue("Equipment Condition");
-        headerRow.createCell(3).setCellValue("Remark");
+        headerRow.createCell(4).setCellValue("Equipment Condition");
+        headerRow.createCell(5).setCellValue("Remark");
     }
 
     public void addAll(ArrayList<Model> list){
@@ -39,21 +39,21 @@ public class Excel {
             Row sheetrow=sheet.createRow(i);
             sheetrow.createCell(0).setCellValue(model.getName());
             sheetrow.createCell(1).setCellValue(model.getQuantity());
-            sheetrow.createCell(3).setCellValue(model.getVendor());
-            sheetrow.createCell(4).setCellValue(model.getModel());
-            sheetrow.createCell(5).setCellValue(model.getCondition());
-            sheetrow.createCell(6).setCellValue(model.getRemark());
+            sheetrow.createCell(2).setCellValue(model.getVendor());
+            sheetrow.createCell(3).setCellValue(model.getModel());
+            sheetrow.createCell(4).setCellValue(model.getCondition());
+            sheetrow.createCell(5).setCellValue(model.getRemark());
         }
     }
 
     public void add(Model model, int position){
-        Row sheetrow=sheet.createRow(position);
+        Row sheetrow=sheet.createRow(position + 1);
         sheetrow.createCell(0).setCellValue(model.getName());
         sheetrow.createCell(1).setCellValue(model.getQuantity());
-        sheetrow.createCell(3).setCellValue(model.getVendor());
-        sheetrow.createCell(4).setCellValue(model.getModel());
-        sheetrow.createCell(5).setCellValue(model.getCondition());
-        sheetrow.createCell(6).setCellValue(model.getRemark());
+        sheetrow.createCell(2).setCellValue(model.getVendor());
+        sheetrow.createCell(3).setCellValue(model.getModel());
+        sheetrow.createCell(4).setCellValue(model.getCondition());
+        sheetrow.createCell(5).setCellValue(model.getRemark());
     }
 
     public void finish(String siteName){

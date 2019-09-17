@@ -12,17 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.SurveyApp.R;
-import com.example.SurveyApp.constants.AppConstants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<HashMap<String, String>> list;
+    private ArrayList<String> list;
 
-    public ImageAdapter(Context context, ArrayList<HashMap<String, String>> list) {
+    ImageAdapter(Context context, ArrayList<String> list) {
         this.context = context;
         this.list = list;
     }
@@ -35,8 +33,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(context).load(list.get(position).get(AppConstants.ITEM_IMAGE)).into(holder.itemImage);
-        holder.itemImageName.setText(list.get(position).get(AppConstants.ITEM_IMAGE_NAME));
+        Glide.with(context).load(list.get(position)).into(holder.itemImage);
+        holder.itemImageName.setText(String.valueOf(position));
+        System.out.println("Notified position: " + list.get(position));
     }
 
     @Override
@@ -52,8 +51,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            itemImage = itemView.findViewById(R.id.item_image);
-            itemImageName = itemView.findViewById(R.id.text_item_name);
+            itemImage = itemView.findViewById(R.id.site_image);
+            itemImageName = itemView.findViewById(R.id.item_image_name);
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.SurveyApp.model;
 
+import java.util.ArrayList;
+
 public class Model {
 
     private String name;
@@ -8,6 +10,7 @@ public class Model {
     private String model = "None";
     private String condition = "None";
     private String remark = "None";
+    private ArrayList<String> imageList = new ArrayList<>();
 
     public Model(String name) {
         this.name = name;
@@ -59,5 +62,14 @@ public class Model {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+
+    public ArrayList<String> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(ArrayList<String> imageList) {
+        this.imageList = imageList;
     }
 }

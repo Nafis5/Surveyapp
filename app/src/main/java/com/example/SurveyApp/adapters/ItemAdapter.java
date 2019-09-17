@@ -18,16 +18,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.SurveyApp.R;
+import com.example.SurveyApp.interfaces.Main;
 import com.example.SurveyApp.model.Model;
 import com.example.SurveyApp.util.Excel;
 
 import java.util.ArrayList;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Model> list;
     private Excel excel;
+    private ImageAdapter adapter;
 
     public ItemAdapter(Context context, ArrayList<Model> list, String siteId) {
         this.context = context;
@@ -86,11 +88,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         });
 
         holder.imageRecycler.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL,false));
+        adapter = new ImageAdapter(context, model.getImageList());
+        holder.imageRecycler.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        holder.imageRecycler.setAdapter(adapter);
 
         holder.buttonAddItemPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                takePhoto();
+                ((Main) context).openCamera(position);
             }
         });
 
@@ -113,6 +118,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
 
     public void saveData(String siteName) {
         excel.finish(siteName);
+    }
+
+    public void notifyChange() {
+        adapter.notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
